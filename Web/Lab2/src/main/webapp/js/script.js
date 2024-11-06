@@ -1,6 +1,3 @@
-// Ваш JavaScript-код
-
-// Обработка кнопок R
 const buttons = document.querySelectorAll('.r-buttons button');
 let selectedR = null;
 
@@ -14,7 +11,6 @@ buttons.forEach(button => {
     });
 });
 
-// Обработка кнопки отправки
 const submitButton = document.getElementById('submitButton');
 const xInput = document.querySelector('.main__input-data__input-field');
 const yInputs = document.querySelectorAll('input[name="yValue"]');
@@ -60,7 +56,7 @@ function sendData(xValue, yValue, rValue) {
     if (!isValidX(xValue)) {
         submitButton.classList.add('error');
         submitButton.classList.remove('success');
-        console.log('X должЕЕЕен быть числом от -3 до 5');
+        console.log('X должен быть числом от -3 до 5');
         return;
     }
 
@@ -124,7 +120,7 @@ function displayResultInTable(data, xValue, yValue, rValue) {
             <td>${yValue}</td>
             <td>${rValue}</td>
             <td>${data.answer ? 'Да' : 'Нет'}</td>
-            <td>${new Date().toLocaleString()}</td>
+            <td>${'1 мс'}</td>
         </tr>
     `;
 
@@ -136,35 +132,23 @@ submitButton.addEventListener('click', (event) => {
     event.preventDefault();
     const xValue = xInput.value.trim();
     const yValue = getSelectedY();
-    const rValue = selectedR;
-
-    sendData(xValue, yValue, rValue);
-});
-
-// Обработка клика по SVG
-const svg = document.querySelector('svg');
-svg.addEventListener('click', function(event) {
-    if (!isRSelected()) {
-        alert('СнАААААААААччала выберите значение R.');
-        return;
-    }
-    const rect = svg.getBoundingClientRect();
-    const x = event.clientX - rect.left - 210; // 210 - центр координат
-    const y = 210 - (event.clientY - rect.top); // Инвертируем Y
-
-    // Масштабируем координаты в соответствии с R
-    const scale = selectedR / 140; // 140 - масштаб графика
-    const xValue = (x * scale).toFixed(2);
-    const yValue = (y * scale).toFixed(2);
-
-    // Отправляем данные на сервер
     sendData(xValue, yValue, selectedR);
 });
 
-const hiddenRInput = document.getElementById('hiddenRValue');
+const svg = document.querySelector('svg');
+svg.addEventListener('click', function(event) {
+    if (!selectedR) {
+        alert('Сначала выберите значение R.');
+        return;
+    }
+    const rect = svg.getBoundingClientRect();
+    const x = event.clientX - rect.left - 210;
+    const y = 210 - (event.clientY - rect.top);
+    const scale = selectedR / 140;
+    const xValue = (x * scale).toFixed(2);
+    const yValue = (y * scale).toFixed(2);
+    sendData(xValue, yValue, selectedR);
+});
 
-// Функция проверки выбора R
-function isRSelected() {
-    return hiddenRInput.value !== "";
-}
+
 
