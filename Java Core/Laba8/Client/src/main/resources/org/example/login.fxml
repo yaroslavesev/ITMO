@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="522.0" prefWidth="719.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AuthorizationController">
+    <children>
+      <Button fx:id="logButtonL" layoutX="187.0" layoutY="365.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="104.0" text="Login" />
+        <Label layoutX="92.0" layoutY="230.0" text="Username:" />
+        <Label layoutX="94.0" layoutY="282.0" text="Password:" />
+        <TextField fx:id="usernameFieldL" layoutX="169.0" layoutY="226.0" prefWidth="140.0" />
+        <PasswordField fx:id="passwordFieldL" layoutX="169.0" layoutY="278.0" prefWidth="140.0" />
+      <Label layoutX="94.0" layoutY="117.0" text="Hi!  You need to login!">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Button id="regButtonL" layoutX="211.0" layoutY="319.0" mnemonicParsing="false" onAction="#switchToRegister" text="register" />
+    </children>
+</AnchorPane>
