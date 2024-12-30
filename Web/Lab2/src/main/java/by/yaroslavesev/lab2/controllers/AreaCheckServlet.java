@@ -1,14 +1,20 @@
 package by.yaroslavesev.lab2.controllers;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+
 import by.yaroslavesev.lab2.models.Point;
 import by.yaroslavesev.lab2.utills.ValidateArea;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/check")
 public class AreaCheckServlet extends HttpServlet {
@@ -24,16 +30,26 @@ public class AreaCheckServlet extends HttpServlet {
         Point result = new Point(x, y, r, isInside);
         long endTime = System.nanoTime();
         long executionTime = (endTime - startTime) / 1000000;
+
         HttpSession session = request.getSession();
-        session.setAttribute("lastX", xParam);
-        session.setAttribute("lastY", yParam);
-        session.setAttribute("lastR", rParam);
-        List<Point> results = (List<Point>) session.getAttribute("results");
-        if (results == null) {
-            results = new ArrayList<>();
+
+        Map<Double, List<Point>> radiusPoints = (Map<Double, List<Point>>) session.getAttribute("radiusPoints");
+        if (radiusPoints == null) {
+            radiusPoints = new HashMap<>();
         }
-        results.add(result);
-        session.setAttribute("results", results);
+
+        List<Point> pointsList = radiusPoints.getOrDefault(r, new ArrayList<>());
+        pointsList.add(result);
+        radiusPoints.put(r, pointsList);
+        session.setAttribute("radiusPoints", radiusPoints);
+        
+        List<Point> allPoints = (List<Point>) session.getAttribute("allPoints");
+        if (allPoints == null) {
+            allPoints = new ArrayList<>();
+        }
+        allPoints.add(result);
+        session.setAttribute("allPoints", allPoints);
+
         String isAjax = request.getHeader("X-Requested-With");
         if ("XMLHttpRequest".equals(isAjax)) {
             response.setContentType("application/json");

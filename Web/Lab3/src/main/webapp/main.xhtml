@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta name="server-id" content="#{hitCheckBean.serverId}"/>
+    <title>Laboratory №3</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css"/>
+    <script src="resources/js/Script.js"> </script>
+</h:head>
+<h:body>
+    <h:form id="form">
+        <header>
+            <table class="header">
+                <tr>
+                    <td class="header__details">
+                        <p class="header__details__lab-number">Лабораторная работа №3</p>
+                        <p>Вариант №683</p>
+                        <p class="header__details__student-name">Есев Ярослав P3215</p>
+                    </td>
+                </tr>
+            </table>
+        </header>
+        <main>
+            <table class="main">
+                <tr>
+                    <td>
+                        <table class="main__input-data">
+                            <!-- X Input -->
+                            <tr class="main__input-data__x">
+                                <td>
+                                    <h:graphicImage library="images" name="letter_x.png" alt="X icon" width="30" height="30"/>
+                                </td>
+                                <td>
+                                    <p:outputLabel for="xInput" value="Изменение X (-3 до 3, шаг 0.5): "/>
+                                    <p:inputText id="xInput"
+                                                 value="#{hitCheckBean.x}"
+                                                 required="true"
+                                                 requiredMessage="Поле X обязательно"
+                                                 styleClass="main__input-data__input-field">
+                                        <f:validateDoubleRange minimum="-3" maximum="3"/>
+                                    </p:inputText>
+                                </td>
+                            </tr>
+                            <!-- Y Input -->
+                            <tr class="main__input-data__y">
+                                <td>
+                                    <h:graphicImage library="images" name="letter_y.png" alt="Y icon" width="30" height="30"/>
+                                </td>
+                                <td>
+                                    <p:outputLabel for="yInput" value="Изменение X (-5 до 5): "/>
+                                    <p:inputText id="yInput"
+                                                 value="#{hitCheckBean.y}"
+                                                 required="true"
+                                                 requiredMessage="Поле Y обязательно"
+                                                 styleClass="main__input-data__input-field">
+                                        <f:validateDoubleRange minimum="-5" maximum="5"/>
+                                    </p:inputText>
+                                </td>
+                            </tr>
+                            <!-- R Input -->
+                            <tr class="main__input-data__r">
+                                <td>
+                                    <h:graphicImage library="images" name="letter_r.png" alt="R icon" width="30" height="30"/>
+                                </td>
+                                <td>
+                                    <p:outputLabel for="rSpinner" value="Изменение R (0.1 до 3, шаг 0.1): "/>
+                                    <p:spinner id="rSpinner"
+                                               value="#{hitCheckBean.r}"
+                                               min="0.1" max="3" stepFactor="0.1"
+                                               styleClass="main__input-data__input-field"
+                                               onchange="handleRChange(this.value)" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="buttons-container">
+                        <p:commandButton id="submitButton"
+                                         value="Отправить"
+                                         action="#{hitCheckBean.button}"
+                                         update=":form:resultTable, :form:plotImage, :form:rSpinner, :form:yInput, :form:xInput"
+
+                        process="@form"
+                        oncomplete="drawPoint(#{hitCheckBean.x}, #{hitCheckBean.y}, #{hitCheckBean.r}, args.result)"
+                        styleClass="submit-button"/>
+                        <p:commandButton value="Перейти на стартовую страницу" onclick="window.location.href='index.xhtml'" styleClass="main-href-button"/>
+                    </td>
+                </tr>
+                <tr class="centered-container">
+                    <td class="svg-container" style="position: relative;">
+                        <p:graphicImage name="plot.svg" library="graphics" width="420" height="420" id="plotImage" />
+
+                        <div id="plotOverlay"
+                             style="position: absolute; top: 0; left: 0; width: 490px; height: 490px; cursor: pointer;"
+                             onclick="handlePlotClick(event)"> </div>
+                    </td>
+                </tr>
+
+                <p:remoteCommand name="sendHitCheck"
+                                 action="#{hitCheckBean.process}"
+                                 process="@this"
+                                 update="resultTable"
+                                 oncomplete="drawPoint(clickedX, clickedY, clickedR, args.result)">
+                </p:remoteCommand>
+            </table>
+
+            <p:dataTable id="resultTable" value="#{hitCheckBean.results}" var="result" style="width:100%; margin-top: 20px;">
+                <p:column headerText="X">
+                    <h:outputText value="#{result.x}" />
+                </p:column>
+                <p:column headerText="Y">
+                    <h:outputText value="#{result.y}" />
+                </p:column>
+                <p:column headerText="R">
+                    <h:outputText value="#{result.r}" />
+                </p:column>
+                <p:column headerText="Попадание">
+                    <h:outputText value="#{result.result ? 'Да' : 'Нет'}" />
+                </p:column>
+                <p:column headerText="Время">
+                    <h:outputText value="#{result.dateTime}" />
+                </p:column>
+            </p:dataTable>
+        </main>
+    </h:form>
+</h:body>
+</html>

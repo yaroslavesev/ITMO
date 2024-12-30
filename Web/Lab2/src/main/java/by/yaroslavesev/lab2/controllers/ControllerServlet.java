@@ -2,10 +2,14 @@ package by.yaroslavesev.lab2.controllers;
 
 import java.io.*;
 
+
+import by.yaroslavesev.lab2.utills.ValidateData;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import by.yaroslavesev.lab2.utills.ValidateData;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/controller")
 public class ControllerServlet extends HttpServlet {

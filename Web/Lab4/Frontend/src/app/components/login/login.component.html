@@ -1,0 +1,64 @@
+<header>
+    <table class="header">
+        <tr>
+            <td class="header__logo">
+                <img src="assets/img/vt_duck.png" alt="VT duck">
+            </td>
+            <td class="header__details">
+                <p class="header__details__lab-number">Лабораторная работа №4</p>
+                <p class="header__details__variant">Вариант JAX-RS + Angular 2</p>
+                <p class="header__details__student-name">Есев Ярослав P3215</p>
+            </td>
+        </tr>
+    </table>
+</header>
+
+<main class="login-container">
+    <div class="login-box">
+        <h1>Авторизация</h1>
+        <form (ngSubmit)="onLogin()">
+            <div class="input-group">
+                <label for="username">Имя пользователя:</label>
+                <input
+                        id="username"
+                        type="text"
+                        [(ngModel)]="username"
+                        name="username"
+                        placeholder="Введите логин"
+                        required
+                />
+            </div>
+            <div class="input-group">
+                <label for="password">Пароль:</label>
+                <input
+                        id="password"
+                        type="password"
+                        [(ngModel)]="password"
+                        name="password"
+                        placeholder="Введите пароль"
+                        required
+                />
+            </div>
+            <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
+            <button type="submit" class="login-button">Войти</button>
+        </form>
+        <button (click)="onRegister()" class="register-button">Зарегистрироваться</button>
+    </div>
+</main>
+
+<footer>
+    <table class="footer">
+        <tr>
+            <td class="footer__logo">
+                <img src="assets/img/itmo_logo.png" alt="ITMO logo">
+            </td>
+        </tr>
+        <tr>
+            <td class="footer__year">
+                <p>2024</p>
+            </td>
+        </tr>
+    </table>
+</footer>

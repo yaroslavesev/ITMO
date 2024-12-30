@@ -1,0 +1,171 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.main__input-data {
+    margin-top: 100px;
+}
+
+.main__input-data img {
+    width: auto;
+    height: auto;
+    max-width: 10%;
+    padding-left: 0;
+}
+
+.header {
+    height: 270px;
+    background-color: black;
+    color: white;
+    position: relative;
+}
+
+.header__details {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding-left: 10px;
+    font-family: fantasy;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.header__details__lab-number {
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+.header__details__student-name {
+    padding-bottom: 10px;
+}
+
+td {
+    padding: 10px;
+}
+
+.main__input-data__input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main__input-data__input-field:hover,
+.main__input-data__input-field:focus {
+    border-color: black;
+    outline: none;
+}
+
+.main__input-data td {
+    text-align: center;
+}
+
+.main__input-data {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.svg-container {
+    width: 500px;
+    height: 500px;
+    border: 5px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.buttons-container {
+    transform: translate(110px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.main-href-button, .submit-button{
+    transform: translate(300px, 0px);
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.main-href-button:hover, .submit-button:hover {
+    background-color: grey;
+    color: black;
+    border-color: black;
+    border-radius: 8px;
+}
+
+.main-href-button.success, .submit-button.success {
+    border-color: white;
+    color: white;
+}
+
+.main-href-button.success, .submit-button.error {
+    border-color: red;
+    color: red;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 600px) {
+    .header__logo img {
+        width: 50px;
+    }
+
+    .header__details {
+        font-size: 10px;
+    }
+
+    .header__details__lab-number {
+        font-size: 12px;
+        margin-top: 30px;
+    }
+
+    .main__input-data {
+        margin-top: 50px;
+    }
+
+    .main__input-data img {
+        width: auto;
+    }
+
+    .main__input-data__x input::placeholder {
+        font-size: 13px;
+    }
+
+    @media (max-width: 475px) {
+        .main__input-data__x input::placeholder {
+            font-size: 9px;
+        }
+    }
+}

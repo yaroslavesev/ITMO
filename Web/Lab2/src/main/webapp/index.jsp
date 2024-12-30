@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="by.yaroslavesev.lab2.models.Point" %>
-<%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.Locale" %>
 <%
     ArrayList<Point> results = (ArrayList<Point>) session.getAttribute("results");
@@ -433,7 +432,7 @@
             </td>
             <td><%= result.isInside() ? "Да" : "Нет" %>
             </td>
-            <td><%= LocalDate.now() %> ms</td>
+            <td><%=1%> ms</td>
         </tr>
         <%
             }

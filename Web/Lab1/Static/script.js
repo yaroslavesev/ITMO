@@ -34,7 +34,7 @@ function isValidX(xValue) {
 
     if (numX === -3 || numX === 5) {
         if (xValue.includes('.')) {
-            const decimalPart = xValue.split('.')[1];
+            const decimalPart = xValue.split('  .')[1];
             if (!/^[0]+$/.test(decimalPart)) {
                 console.log('Для -3 и 5 после точки должны быть только нули.');
                 return false;

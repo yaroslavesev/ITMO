@@ -1,0 +1,172 @@
+<header>
+    <table class="header">
+        <tr>
+            <td class="header__logo">
+                <img src="assets/img/vt_duck.png" alt="VT duck" height="64" width="64">
+            </td>
+            <td class="header__details">
+                <p class="header__details__lab-number">Лабораторная работа №4</p>
+                <p class="header__details__variant">Вариант JAX-RS + Angular 2</p>
+                <p class="header__details__student-name">Есев Ярослав P3215</p>
+            </td>
+        </tr>
+    </table>
+</header>
+
+<main>
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="header__logout" (click)="logout()">Выйти</button>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message" style="color: red; text-align: center; margin-top: 10px;">
+        {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="main">
+        <table class="main__input-data">
+            <tr class="main__input-data__x">
+                <td class="main__input-data__x__logo">
+                    <img src="assets/img/letter-x.png" alt="X icon" height="32" width="32">
+                </td>
+                <td>
+                    <input
+                            type="text"
+                            class="main__input-data__input-field"
+                            placeholder="Введите X (от -3 до 5)"
+                            [(ngModel)]="xValue"
+                            name="xValue"
+                            required
+                    />
+                </td>
+            </tr>
+
+            <tr class="main__input-data__y">
+                <td class="main__input-data__y__logo">
+                    <img src="assets/img/letter-y.png" alt="Y icon" height="32" width="32">
+                </td>
+                <td colspan="2">
+                    <div class="y-options" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <div *ngFor="let y of yOptions">
+                            <input
+                                    type="radio"
+                                    [id]="'yChoice' + y"
+                                    name="yValue"
+                                    [value]="y"
+                                    [(ngModel)]="yValue"
+                            />
+                            <label [for]="'yChoice' + y">{{ y }}</label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="main__input-data__r">
+                <td class="main__input-data__r__logo">
+                    <img src="assets/img/letter-r.png" alt="R icon" height="32" width="32">
+                </td>
+                <td colspan="2" class="r-buttons" style="display: flex; gap: 10px;">
+                    <button
+                            type="button"
+                            *ngFor="let r of rOptions"
+                            [class.active]="rValue == r.toString()"
+                            (click)="onSelectR(r)"
+                            style="padding: 5px 10px;"
+                    >
+                        {{ r }}
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <div style="text-align: center; margin-top: 10px;">
+            <button type="submit" class="submit-button" style="padding: 10px 20px;">
+                Отправить
+            </button>
+        </div>
+    </form>
+
+    <div class="svg-container">
+        <svg class="graph"
+                id="main-svg"
+                xmlns="http://www.w3.org/2000/svg"
+                width="420"
+                height="420"
+                (click)="onSvgClick($event)"
+                style="border: 1px solid #ccc;"
+        >
+            <line x1="0" y1="210" x2="420" y2="210" stroke="#000720"></line>
+            <line x1="210" y1="0" x2="210" y2="420" stroke="#000720"></line>
+
+            <polygon points="420,210 415,215 415,205" fill="#000720" stroke="#000720"></polygon>
+            <polygon points="210,0 205,5 215,5" fill="#000720" stroke="#000720"></polygon>
+
+            <line x1="350" y1="208" x2="350" y2="212" stroke="#000720"></line>
+            <text x="345" y="200">R</text>
+
+            <line x1="280" y1="208" x2="280" y2="212" stroke="#000720"></line>
+            <text x="270" y="200">R/2</text>
+
+            <line x1="140" y1="208" x2="140" y2="212" stroke="#000720"></line>
+            <text x="130" y="200">-R/2</text>
+
+            <line x1="70" y1="208" x2="70" y2="212" stroke="#000720"></line>
+            <text x="60" y="200">-R</text>
+
+            <line x1="208" y1="70" x2="212" y2="70" stroke="#000720"></line>
+            <text x="217" y="75">R</text>
+
+            <line x1="208" y1="140" x2="212" y2="140" stroke="#000720"></line>
+            <text x="217" y="145">R/2</text>
+
+            <line x1="208" y1="280" x2="212" y2="280" stroke="#000720"></line>
+            <text x="217" y="285">-R/2</text>
+
+            <line x1="208" y1="350" x2="212" y2="350" stroke="#000720"></line>
+            <text x="217" y="355">-R</text>
+
+            <polygon points="210,210 70,210 210,70" fill-opacity="0.4" stroke="navy" fill="blue"></polygon>
+            <rect x="210" y="140" width="140" height="70" fill-opacity="0.4" stroke="navy" fill="blue"></rect>
+            <path d="M 210 210 L 70 210 A 140 140 0 0 0 210 350 Z" fill-opacity="0.4" stroke="navy" fill="blue"></path>
+            <g id="points-group"></g>
+        </svg>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <h2>Список точек</h2>
+        <table id="resultTable" border="1" style="width:80%; margin: 0 auto;">
+            <thead>
+            <tr class="nazvtaba">
+                <th>X</th>
+                <th>Y</th>
+                <th>R</th>
+                <th>Попадание</th>
+                <th>Время</th>
+            <tr>
+            </thead>
+            <tbody>
+            <tr class="taba" *ngFor="let row of currentPoints">
+                <td>{{ row.x }}</td>
+                <td>{{ row.y }}</td>
+                <td>{{ row.r }}</td>
+                <td>{{ row.hitStatus ? 'Да' : 'Нет' }}</td>
+                <td>{{ row.date }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <table class="footer">
+        <tr>
+            <td class="footer__logo">
+                <img src="assets/img/itmo_logo.png" alt="ITMO logo" height="64" width="64">
+            </td>
+        </tr>
+        <tr>
+            <td class="footer__year">
+                <p>2024</p>
+            </td>
+        </tr>
+    </table>
+</footer>

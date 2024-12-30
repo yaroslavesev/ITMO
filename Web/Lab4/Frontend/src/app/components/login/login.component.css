@@ -1,0 +1,259 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.header__logo img {
+  width: 45px;
+  height: auto;
+}
+
+.header__details {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.header__details__lab-number {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header__details__variant,
+.header__details__student-name {
+  font-size: 16px;
+}
+
+.login-container {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 200px); /* Учитываем высоту шапки и подвала */
+  padding-bottom: 100px; /* Увеличенный отступ от формы до футера */
+  background-color: #f5f5f5;
+}
+
+.login-box {
+  background: white;
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.login-box h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input-group input {
+  width: 93%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: green;
+}
+
+.register-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #f12f4c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.footer__logo img {
+  width: 20px;
+  height: auto;
+}
+
+.footer__year {
+  font-size: 5px;
+  margin-top: 5px;
+}
+
+@media (min-width: 1219px) {
+  .header__logo img {
+    width: 60px;
+  }
+
+  .login-box {
+    width: 400px;
+  }
+
+  .login-box h1 {
+    font-size: 32px;
+  }
+
+  .input-group input {
+    font-size: 18px;
+  }
+
+  .login-button,
+  .register-button {
+    font-size: 20px;
+    padding: 12px;
+  }
+}
+
+@media (min-width: 668px) and (max-width: 1218px) {
+  .header__logo img {
+    width: 50px;
+  }
+
+  .login-box {
+    width: 350px;
+  }
+
+  .login-box h1 {
+    font-size: 28px;
+  }
+
+  .input-group input {
+    font-size: 16px;
+  }
+
+  .login-button,
+  .register-button {
+    font-size: 18px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 667px) {
+  .header__logo img {
+    width: 40px;
+  }
+
+  .login-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 0 20px;
+    height: auto;
+    background-color: #f5f5f5;
+  }
+
+  .login-box {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .login-box h1 {
+    font-size: 24px;
+  }
+
+  .input-group input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .login-button,
+  .register-button {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .header__details {
+    flex-grow: 0;
+    margin-top: 10px;
+  }
+
+  .footer {
+    padding: 8px 0;
+    font-size: 12px;
+  }
+
+  .footer__logo img {
+    width: 16px;
+  }
+
+  .footer__year {
+    font-size: 4px;
+    margin-top: 3px;
+  }
+
+}
+

@@ -1,13 +1,24 @@
 const buttons = document.querySelectorAll('.r-buttons button');
 let selectedR = null;
+function updateGraphPoints(selectedR) {
+    document.getElementById('points').innerHTML = '';
+
+    const radiusPoints = sessionStorage.getItem(`points_${selectedR}`);
+    if (radiusPoints) {
+        const points = JSON.parse(radiusPoints);
+        points.forEach(point => {
+            drawPoint(point.x, point.y, selectedR, point.isInside);
+        });
+    }
+}
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         buttons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         selectedR = button.dataset.value;
-        console.log('Selected R:', selectedR);
         document.getElementById('hiddenRValue').value = selectedR;
+        updateGraphPoints(selectedR);
     });
 });
 
@@ -56,14 +67,12 @@ function sendData(xValue, yValue, rValue) {
     if (!isValidX(xValue)) {
         submitButton.classList.add('error');
         submitButton.classList.remove('success');
-        console.log('X должен быть числом от -3 до 5');
         return;
     }
 
     if (!xValue || !yValue || !rValue) {
         submitButton.classList.add('error');
         submitButton.classList.remove('success');
-        console.log('Ошибка валидации');
         return;
     }
 
@@ -75,17 +84,16 @@ function sendData(xValue, yValue, rValue) {
         },
         body: `x=${encodeURIComponent(xValue)}&y=${encodeURIComponent(yValue)}&r=${encodeURIComponent(rValue)}`
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Сетевая ошибка');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log('Ответ от сервера:', data);
-            submitButton.classList.remove('error');
-            submitButton.classList.add('success');
             displayResultInTable(data, xValue, yValue, rValue);
+
+            const pointsKey = `points_${rValue}`;
+            const points = JSON.parse(sessionStorage.getItem(pointsKey)) || [];
+            points.push({ x: xValue, y: yValue, isInside: data.answer });
+            sessionStorage.setItem(pointsKey, JSON.stringify(points));
+
+            updateGraphPoints(rValue);
         })
         .catch(error => {
             console.error('Ошибка отправки данных:', error);
@@ -112,15 +120,13 @@ function drawPoint(x, y, r, isInside) {
 }
 
 function displayResultInTable(data, xValue, yValue, rValue) {
-    let resultHTML = '';
-
-    resultHTML += `
+    const resultHTML = `
         <tr>
             <td>${xValue}</td>
             <td>${yValue}</td>
             <td>${rValue}</td>
             <td>${data.answer ? 'Да' : 'Нет'}</td>
-            <td>${'1 мс'}</td>
+            <td>${"1 мс"}</td>
         </tr>
     `;
 
@@ -149,6 +155,4 @@ svg.addEventListener('click', function(event) {
     const yValue = (y * scale).toFixed(2);
     sendData(xValue, yValue, selectedR);
 });
-
-
 

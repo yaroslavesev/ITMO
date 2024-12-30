@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.index-button {
+    align-content: center;
+}
+
+#clock {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: black;
+    align-content: center;
+}
+
+.clock-and-href {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transform: translate(0px, 300px);
+}
+
+.header {
+    height: 270px;
+    background-color: black;
+    color: white;
+    position: relative;
+}
+
+.header__details {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding-left: 10px;
+    font-family: fantasy;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.header__details__lab-number {
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+.header__details__student-name {
+    padding-bottom: 10px;
+}
+
+td {
+    padding: 10px;
+}
