@@ -1,7 +1,3 @@
-Here’s a **description of the 8 Java Core labs** for your repository:
-
----
-
 ## 📚 **Java Core Labs Overview**
 
 This repository contains **8 labs** designed to enhance your understanding of core Java concepts, from mathematical operations and object-oriented programming (OOP) to client-server communication and graphical user interfaces.
